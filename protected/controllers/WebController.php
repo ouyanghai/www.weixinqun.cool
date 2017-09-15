@@ -112,6 +112,7 @@ class WebController extends TopController{
 		$this->render("list");
 	}
 
+	//批量接收二维码信息
 	public function actionGetPost(){
 		
 		if(!isset($_GET['cate_name']) || empty($_GET['city_name']) || empty($_GET['qun_name']) || empty($_GET['qun_logo'])|| empty($_GET['qun_user_img'])|| empty($_GET['qun_img'])){
@@ -173,6 +174,63 @@ class WebController extends TopController{
 		$command = Yii::app()->db->createCommand();
 		$id = $command->setText("select id from `b2b_city` where name like '{$name}%' limit 0,1")->queryScalar();
 		return $id;
+	}
+
+	public function actionGetMobileFile(){
+		if(empty($_GET['imgInfo']) || empty($_FILES['uploadfile'])){
+			echo "参数错误";exit;
+		}
+
+		$date = date("Y-m-d");
+		$dirname = Yii::app()->basePath."/../images/upload/{$date}";
+		if(!is_dir($dirname))
+			mkdir($dirname,0777,true);
+
+		$imgInfo = $_GET['imgInfo'];
+		$file = $_FILES['uploadfile'];
+
+		$filename = date('Y-m-d',time())."_{$imgInfo}_".md5(uniqid());
+		$ext = strrchr($file['name'],'.');
+		$filename .= $ext;
+		move_uploaded_file($file['tmp_name'],$dirname.'/'.$filename);
+		echo $filename;
+	}
+
+	public function actionGetMobileFileInfo(){
+		
+		if(!isset($_GET['cate_name']) || empty($_GET['city_name']) || empty($_GET['qun_name']) || empty($_GET['qun_logo'])|| empty($_GET['qun_user_img'])|| empty($_GET['qun_img'])){
+			echo json_encode("参数错误");exit;
+		}
+		$date = date("Y-m-d");
+		
+		$city_name = rtrim($_GET['city_name'],"市");
+		$cate_name = $_GET['cate_name'];
+
+		$qun_cate = $this->getCateIdByName($cate_name);
+		if(empty($qun_cate)){
+			echo json_encode("参数行业名称错误");exit;
+		}
+		$qun_city = $this->getCityIdByName($city_name);
+		if(empty($qun_city)){
+			echo json_encode("参数城市名{$qun_city}称错误");exit;
+		}
+
+		$user_wx  = $_GET['user_wx'];
+		$qun_name = $_GET['qun_name'];
+		$qun_info = $_GET['qun_info'];
+		$keyword = str_replace(" ", ",", $_GET['qun_keyword']);
+
+		$qun_logo = $_GET['qun_logo'];
+
+		$qun_user_img = $_GET['qun_user_img'];
+
+		$qun_img = $_GET['qun_img'];
+
+		$command = Yii::app()->db->createCommand();
+		$sql = "insert into `qun_img` (user_wx,qun_cate,qun_city,city_name,qun_name,keyword,qun_info,qun_logo,qun_img,qun_user_img,status,created,updated) values('{$user_wx}','{$qun_cate}','{$qun_city}','{$city_name}','{$qun_name}','{$keyword}','{$qun_info}','{$qun_logo}','{$qun_img}','{$qun_user_img}',1,'{$date}','{$date}')";
+		$num = $command->setText($sql)->execute();
+
+		echo json_encode("ok");exit;
 	}
 }
 
