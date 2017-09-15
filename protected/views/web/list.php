@@ -12,12 +12,12 @@
                 <dl class="relative menu-list">
                     <dt class="menu-title menu-title-first">
                         <div class="menu-title-inner">
-                            <a href="/photo/lvyou/index.html" hidefocus="true" class="fl mr10 relative menu-reclassify" title="<?php echo $key; ?>"><strong><?php echo $key; ?></strong></a>
+                            <a href="javascript:;" hidefocus="true" class="fl mr10 relative menu-reclassify" title="<?php echo $key; ?>"><strong><?php echo $key; ?></strong></a>
                         </div>
                     </dt>
                     <dd class="menu-item-list clearfix">
                         <?php foreach ($value as $k => $v) { ?>
-                            <a <?php if($k==$cate){echo "style='background-color:#FF5050'";} ?> hidefocus="true" class="fl menu-three-classify" title="<?php echo $v; ?>" href="<?php echo $this->createUrl("list",array('cate'=>$k,'city'=>$city)); ?>"><?php echo $v; ?></a>    
+                            <a <?php if($k==$cate){echo "style='background-color:#FF5050'";} ?> class="fl menu-three-classify" title="<?php echo $v; ?>" href="<?php echo $this->createUrl("list",array('cate'=>$k,'city'=>$city)); ?>"><?php echo $v; ?></a>    
                         <?php } ?>
                     </dd>
                 </dl>
@@ -72,7 +72,7 @@
                     foreach ($data as $key => $value) { ?>
                         
                     <div class="fl pic-bone-box">
-                        <a href="<?php echo $this->createUrl("detail",array('id'=>$value['id'])); ?>" hidefocus="true" title="<?php echo $value['qun_name']; ?>" class="block hover-none relative align-center pic-bone-imgbox">
+                        <a href="<?php echo $this->createUrl("detail",array('id'=>$value['id'])); ?>"  target="_blank" hidefocus="true" title="<?php echo $value['qun_name']; ?>" class="block hover-none relative align-center pic-bone-imgbox">
                             <img style="width:145px; height:145px;" src="<?php echo Yii::app()->request->hostInfo.'/images/upload/'.substr($value['created'], 0,10).'/'.$value['qun_logo']; ?>"/>
                             <span class="absolute block pic-bone-shadow"></span><span class="absolute block align-center ellipsis pic-bone-imgname"><?php echo $value['qun_name']; ?></span>
                         </a>

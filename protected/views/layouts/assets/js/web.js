@@ -17,4 +17,16 @@ $(function(){
 		*/
 		window.location.href="/web/list?"+param;
 	});
+	$("#detail_user_img_a").mouseover(function(){
+		$(this).css("background-color","#ff3265").css("color","white");
+		$("#detail_qun_img_a").css("background-color","white").css("color","black");
+		$("#detail_qun_img").hide();
+		$("#detail_user_img").show();
+	});
+	$("#detail_qun_img_a").mouseover(function(){
+		$(this).css("background-color","#ff3265").css("color","white");
+		$("#detail_user_img_a").css("background-color","white").css("color","black");
+		$("#detail_user_img").hide();
+		$("#detail_qun_img").show();
+	});
 });

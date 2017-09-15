@@ -3,15 +3,22 @@
         <div class="works-show-box">
             <h1 itemprop="name" class="works-show-title"><?php echo $data['qun_name']; ?></h1>
             <div class="works-show relative">
+                <div style="text-align:center;" id="detail_img">
+                    <a id="detail_user_img_a" href="javascript:;">群主微信二维码</a>
+                    <a id="detail_qun_img_a" href="javascript:;">群二维码</a>
+                </div>
                 <!-- 多媒体静态或者其他作品的放这里 -->
                 <div id="static" class="show-img-section overflow-hidden align-center">
-                    <img style="height:350px;" src="<?php echo Yii::app()->request->hostInfo.'/images/upload/'.substr($data['created'], 0,10).'/'.$data['qun_img']; ?>"/>
+                    <img id="detail_user_img" style="height:350px;" src="<?php echo Yii::app()->request->hostInfo.'/images/upload/'.substr($data['created'], 0,10).'/'.$data['qun_user_img']; ?>"/>
+                    <img id="detail_qun_img" style="height:350px;" src="<?php echo Yii::app()->request->hostInfo.'/images/upload/'.substr($data['created'], 0,10).'/'.$data['qun_img']; ?>"/>
                 </div>
                 <!-- 动态的放这里 -->
             </div>
             <div class="works-show-box-ft gray2">
                 <div id="baiduShare" class="fr mt5 clearfix"></div>
             </div>
+            <label>群主微信号:</label>
+            <b><span class="red1" style="font-size:16px;"><?php echo $data['user_wx']; ?></span></b>
         </div>
        
         <div class="works-intro gray2 clearfix" style="padding-left:25px;padding-right:25px;line-height: 22px;">
