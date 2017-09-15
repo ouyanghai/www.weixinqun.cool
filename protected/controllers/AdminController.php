@@ -28,11 +28,18 @@ class AdminController extends TopController{
 	}
 
 	public function actionIndex(){
+		$page = !empty($_GET['page'])&&intval($_GET['page'])>1 ? intval($_GET['page']) : 1;
+		$size = 5;
+		$start = ($page-1)*$size;
+
 		$command = Yii::app()->db->createCommand();
 		$res = array();
-		$res = $command->setText("select * from `qun_img` where status=0 order by created asc limit 20")->queryAll();
 		
-		$this->render('index',array("data"=>$res));
+		$res = $command->setText("select * from `qun_img` where status=0 order by created asc limit {$start},{$size}")->queryAll();
+		$count = $command->setText("select count(*) from `qun_img` where status=0")->queryScalar();
+		$pages = ceil($count/$size);
+		
+		$this->render('index',array("data"=>$res,'page'=>$page,'pages'=>$pages));
 	}
 
 	public function actionModifyPass(){

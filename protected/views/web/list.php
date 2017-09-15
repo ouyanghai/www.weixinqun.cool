@@ -17,7 +17,7 @@
                     </dt>
                     <dd class="menu-item-list clearfix">
                         <?php foreach ($value as $k => $v) { ?>
-                            <a <?php if($k==$cate){echo "style='background-color:#FF5050'";} ?> hidefocus="true" class="fl menu-three-classify" title="<?php echo $v; ?>" href="<?php echo $this->createUrl("list",array('cate'=>$k,'city'=>$city,'page'=>$page)); ?>"><?php echo $v; ?></a>    
+                            <a <?php if($k==$cate){echo "style='background-color:#FF5050'";} ?> hidefocus="true" class="fl menu-three-classify" title="<?php echo $v; ?>" href="<?php echo $this->createUrl("list",array('cate'=>$k,'city'=>$city)); ?>"><?php echo $v; ?></a>    
                         <?php } ?>
                     </dd>
                 </dl>
@@ -93,6 +93,7 @@
             <a href="<?php echo $this->createUrl("list",array('cate'=>$cate,'city'=>$city,'page'=>$prev_page)); ?>">上一页</a>
             <a href="<?php echo $this->createUrl("list",array('cate'=>$cate,'city'=>$city,'page'=>$next_page)); ?>">下一页</a>
             <a href="<?php echo $this->createUrl("list",array('cate'=>$cate,'city'=>$city,'page'=>$pages)); ?>">尾页</a>
+            &nbsp;&nbsp;&nbsp;<span><?php echo '第'.$page.'/'.$pages.'页' ?></span>
         </div>
     </div>
 

@@ -75,8 +75,7 @@ class WebController extends TopController{
 			$where .=" and qun_cate='{$cate}'";
 		}
 
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$page = ($page>1) ? $page : 1;
+		$page = !empty($_GET['page'])&&intval($_GET['page'])>1 ? intval($_GET['page']) : 1;
 		$size = 20;
 		$start = ($page-1)*$size;
 		$command = Yii::app()->db->createCommand();
@@ -155,7 +154,7 @@ class WebController extends TopController{
 		$date = date('Y-m-d H:i:s');
 
 		$command = Yii::app()->db->createCommand();
-		$sql = "insert into `qun_img` (user_wx,qun_cate,qun_city,city_name,qun_name,keyword,qun_info,qun_logo,qun_img,qun_user_img,status,created,updated) values('{$user_wx}','{$qun_cate}','{$qun_city}','{$city_name}','{$qun_name}','{$keyword}','{$qun_info}','{$qun_logo}','{$qun_img}','{$qun_user_img}',0,'{$date}','{$date}')";
+		$sql = "insert into `qun_img` (user_wx,qun_cate,qun_city,city_name,qun_name,keyword,qun_info,qun_logo,qun_img,qun_user_img,status,created,updated) values('{$user_wx}','{$qun_cate}','{$qun_city}','{$city_name}','{$qun_name}','{$keyword}','{$qun_info}','{$qun_logo}','{$qun_img}','{$qun_user_img}',1,'{$date}','{$date}')";
 		$num = $command->setText($sql)->execute();
 
 		echo json_encode("ok");exit;
