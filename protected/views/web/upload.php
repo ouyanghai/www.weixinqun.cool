@@ -3,7 +3,7 @@
 	<div id="upload-title">发布微信群</div>
 	<form id="uploadForm">
 		<div class='row-input'>
-			所属行业&nbsp;&nbsp;:
+			所属行业&nbsp;:
 			<select name="qun_cate" id="cate">
 			<?php foreach ($this->cate as $key => $value) { ?>
 				<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
@@ -12,7 +12,7 @@
 		</div>
 
 		<div class='row-input'>
-			所在地区&nbsp;&nbsp;:
+			所在地区&nbsp;:
 			<select id="province"></select>
 			<select name="qun_city" id="citys"></select><br/>	
 			<input type="hidden" name="city_name" id="city_name"/>
@@ -27,7 +27,7 @@
 			<input type='text' style="width:307px;" name='qun_keyword' id="qun_keyword" placeholder="多个标签以空格隔开"/>
 		</div>
 		<div class='row-input'>
-			<span style="float:left;">微信群介绍&nbsp;:</span>
+			<span style="float:left;">微信群介绍：</span>
 			<textarea name="qun_info" id="qun_info" style="width:307px;height:100px;"></textarea>
 		</div>
 		
@@ -38,7 +38,7 @@
 			<span class="upload_msg"></span>
 		</div>
 		<div class='row-input'>
-			群二维码&nbsp;&nbsp;:
+			群二维码&nbsp;:
 			<span class="upload-span">上传群二维码</span>
 			<input type="file" id="qun_img" class='upload_file' name="qun_img" style="display:none;"/>
 			<span class="upload_msg"></span>

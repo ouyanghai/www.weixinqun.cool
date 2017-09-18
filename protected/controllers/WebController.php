@@ -195,7 +195,7 @@ class WebController extends TopController{
 		move_uploaded_file($file['tmp_name'],$dirname.'/'.$filename);
 		echo $filename;
 	}
-
+	
 	public function actionGetMobileFileInfo(){
 		
 		if(!isset($_GET['cate_name']) || empty($_GET['city_name']) || empty($_GET['qun_name']) || empty($_GET['qun_logo'])|| empty($_GET['qun_user_img'])|| empty($_GET['qun_img'])){
@@ -227,11 +227,12 @@ class WebController extends TopController{
 		$qun_img = $_GET['qun_img'];
 
 		$command = Yii::app()->db->createCommand();
-		$sql = "insert into `qun_img` (user_wx,qun_cate,qun_city,city_name,qun_name,keyword,qun_info,qun_logo,qun_img,qun_user_img,status,created,updated) values('{$user_wx}','{$qun_cate}','{$qun_city}','{$city_name}','{$qun_name}','{$keyword}','{$qun_info}','{$qun_logo}','{$qun_img}','{$qun_user_img}',1,'{$date}','{$date}')";
+		$sql = "insert into `qun_img` (user_wx,qun_cate,qun_city,city_name,qun_name,keyword,qun_info,qun_logo,qun_img,qun_user_img,status,created,updated) values('{$user_wx}','{$qun_cate}','{$qun_city}','{$city_name}','{$qun_name}','{$keyword}','{$qun_info}','{$qun_logo}','{$qun_img}','{$qun_user_img}',0,'{$date}','{$date}')";
 		$num = $command->setText($sql)->execute();
 
 		echo json_encode("ok");exit;
 	}
+
 }
 
 ?>
