@@ -126,6 +126,25 @@ $(function(){
 			}
 		});
 	});
+	$(".user_access").click(function(){
+		var id = $(this).data("id");
+		var status = $(this).data("status");
+		$.ajax({
+			type:'post',
+			dataType:'json',
+			url:'/admin/usermanage',
+			data:{"id":id,"status":status},
+			success:function(msg){
+				if(msg.status=='error'){
+					return alert("操作失败");
+				}
+				window.location.href="/admin/user";
+			},
+			error:function(msg){
+				alert("网络错误");
+			}
+		});
+	});
 });
 function logout(){
 	$.ajax({

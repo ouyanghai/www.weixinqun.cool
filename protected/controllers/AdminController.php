@@ -7,6 +7,7 @@ class AdminController extends TopController{
 
 		$this->menu = array(
 			array("label"=>"任务审核","url"=>"/admin/index"),
+			array("label"=>"用户审核","url"=>"/admin/user"),
 			array(
 				"label"=>"用户信息",
 				"ctr"=>array("modifyPass"),
@@ -40,6 +41,21 @@ class AdminController extends TopController{
 		$pages = ceil($count/$size);
 		
 		$this->render('index',array("data"=>$res,'page'=>$page,'pages'=>$pages));
+	}
+
+	public function actionUser(){
+		$page = !empty($_GET['page'])&&intval($_GET['page'])>1 ? intval($_GET['page']) : 1;
+		$size = 5;
+		$start = ($page-1)*$size;
+
+		$command = Yii::app()->db->createCommand();
+		$res = array();
+		
+		$res = $command->setText("select * from `user_img` where status=0 order by created asc limit {$start},{$size}")->queryAll();
+		$count = $command->setText("select count(*) from `user_img` where status=0")->queryScalar();
+		$pages = ceil($count/$size);
+
+		$this->render('user',array("data"=>$res,'page'=>$page,'pages'=>$pages));
 	}
 
 	public function actionModifyPass(){
@@ -93,6 +109,21 @@ class AdminController extends TopController{
 		$status = $_POST['status'];
 		$command = Yii::app()->db->createCommand();
 		$sql = "update `qun_img` set status='{$status}' where id={$id} and status=0";
+		$num = $command->setText($sql)->execute();
+		if($num > 0){
+			echo json_encode("ok");exit;
+		}
+		echo json_encode("error");exit;
+	}
+
+	public function actionUserManage(){
+		if(empty($_POST['id']) || empty($_POST['status'])){
+			echo json_encode("error");exit;
+		}
+		$id = $_POST['id'];
+		$status = $_POST['status'];
+		$command = Yii::app()->db->createCommand();
+		$sql = "update `user_img` set status='{$status}' where id={$id} and status=0";
 		$num = $command->setText($sql)->execute();
 		if($num > 0){
 			echo json_encode("ok");exit;
