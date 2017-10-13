@@ -101,7 +101,7 @@ class WebController extends TopController{
 
 	public function actionGetNew(){
 		$command = Yii::app()->db->createCommand();
-		$res = $command->setText("select qun_name,qun_info,qun_logo,qun_user_img from `qun_img` where status=1 order by created desc limit 0,30")->queryAll();
+		$res = $command->setText("select qun_name,qun_info,qun_logo,qun_user_img,qun_img,created from `qun_img` where status=1 order by created desc limit 0,30")->queryAll();
 		
 		echo isset($_GET['callback']) ? $_GET['callback']."(".json_encode($res).")" : json_encode("参数错误");exit;
 	}
